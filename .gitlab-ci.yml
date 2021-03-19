@@ -7,6 +7,8 @@ build:
   script:
     - npm install
     - npm run build
+    - cp package.json ./dist/
+    - cd dist
     - npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
     - npm publish
 

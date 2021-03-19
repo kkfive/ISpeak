@@ -9,6 +9,8 @@ build:
     - npm run build
     - cp package.json ./dist/
     - cd dist
+    - rm -rf *.css
+    - rm -rf *.html
     - npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN}
     - npm publish
 

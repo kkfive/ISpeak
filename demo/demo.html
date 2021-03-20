@@ -46,6 +46,7 @@
             url: document.getElementById('url').value,
             el: '#tcomment',
             name: document.getElementById('name').value,
+            file: document.getElementById('file').value,
             onCommentLoaded: function() {
               console.log('评论加载完成')
             }
@@ -89,8 +90,8 @@
                   class="input"
                   id="url"
                   type="text"
-                  placeholder="e.g imaegoo-16fe3d"
-                  value="https://cdn.jsdelivr.net/npm/myspeak@1.6.16072858239/speak.json"
+                  placeholder="e.g https://file.acs.pw/speak/"
+                  value="https://proxy.onesrc.workers.dev/ajax/https://file.acs.pw/speak/"
                 />
               </div>
             </div>
@@ -107,14 +108,16 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">文章路径 | Path: <code>path</code></label>
+              <label class="label"
+                >第一个文件路径 | Path: <code>path</code></label
+              >
               <div class="control">
                 <input
                   class="input"
-                  id="path"
+                  id="file"
                   type="text"
-                  placeholder="e.g window.location.pathname"
-                  value="window.location.pathname"
+                  placeholder="e.g 1.json"
+                  value="1.json"
                 />
               </div>
             </div>

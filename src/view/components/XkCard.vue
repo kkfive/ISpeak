@@ -3,12 +3,11 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-19 13:01:04
+ * @LastEditTime: 2021-03-20 19:23:44
  * @LastEditors: 小康
 -->
 <template>
   <div class="xk-card">
-    <!-- {{ body + '11' }} -->
     <div class="xk-card-header">
       <div class="xk-card-name">
         {{ name }}
@@ -22,6 +21,7 @@
             fill="#1da1f2"
           ></path>
         </svg>
+        <div class="xk-card-time">{{ updated_at }}</div>
       </div>
       <div
         :style="'background:' + label['color'] + ';color:' + label['fontColor']"
@@ -31,14 +31,11 @@
       </div>
     </div>
     <div class="xk-card-content" v-html="body"></div>
-    <div class="xk-card-footer">
-      <div class="xk-card-time">{{ updated_at }}</div>
-    </div>
+    <div class="xk-card-footer"></div>
   </div>
 </template>
 <script>
 import marked from 'marked';
-// import { moment } from 'moment';
 
 export default {
   props: ['speakData', 'name'],
@@ -59,27 +56,61 @@ export default {
     formatBody: (body) => {
       return marked(body);
     },
+    // format time
+    // code from https://www.heson10.com/posts/3510.html
     formatTime: (time) => {
-      // moment.locale('zh-cn');
-      // const date = moment(time).format('YYYY年MM月DD日 HH:mm:ss');
-      // const fromNow = moment(time).fromNow();
-      // return fromNow + ' ' + date;
       const date = new Date(time);
-      const Year = date.getFullYear();
-      const Month =
-        date.getMonth() + 1 > 10
-          ? date.getMonth() + 1
-          : '0' + (date.getMonth() + 1);
-      const Day = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
+      const dateTimeStamp = date.getTime();
 
-      const Hour =
-        date.getHours() >= 10 ? date.getHours() : '0' + date.getHours();
-      const Minute =
-        date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes();
-      const Second =
-        date.getSeconds() >= 10 ? date.getSeconds() : '0' + date.getSeconds();
-      return `${Year}-${Month}-${Day} ${Hour}:${Minute}:${Second}`;
-      // return time;
+      let result = '';
+      //友好地显示时间
+      var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+      var hour = minute * 60;
+      var day = hour * 24;
+      var week = day * 7;
+      var month = day * 30;
+      var now = new Date().getTime(); //获取当前时间毫秒
+      var diffValue = now - dateTimeStamp; //时间差
+      if (diffValue < 0) {
+        return;
+      }
+      var minC = diffValue / minute; //计算时间差的分，时，天，周，月
+      var hourC = diffValue / hour;
+      var dayC = diffValue / day;
+      var weekC = diffValue / week;
+      var monthC = diffValue / month;
+      if (monthC >= 1 && monthC <= 3) {
+        result = ' ' + parseInt(monthC) + ' 月前';
+      } else if (weekC >= 1 && weekC <= 3) {
+        result = ' ' + parseInt(weekC) + ' 周前';
+      } else if (dayC >= 1 && dayC <= 6) {
+        result = ' ' + parseInt(dayC) + ' 天前';
+      } else if (hourC >= 1 && hourC <= 23) {
+        result = ' ' + parseInt(hourC) + ' 小时前';
+      } else if (minC >= 1 && minC <= 59) {
+        result = ' ' + parseInt(minC) + ' 分钟前';
+      } else if (diffValue >= 0 && diffValue <= minute) {
+        result = '刚刚';
+      } else {
+        const datetime = new Date();
+        datetime.setTime(dateTimeStamp);
+        const Year = datetime.getFullYear();
+        const Nmonth =
+          datetime.getMonth() + 1 < 10
+            ? '0' + (datetime.getMonth() + 1)
+            : datetime.getMonth() + 1;
+        const Ndate =
+          datetime.getDate() < 10
+            ? '0' + datetime.getDate()
+            : datetime.getDate();
+        const Hour = datetime.getHours();
+        const minutes =
+          datetime.getMinutes() < 10
+            ? '0' + datetime.getMinutes()
+            : datetime.getMinutes();
+        result = `${Year}-${Nmonth}-${Ndate} ${Hour}:${minutes}`;
+      }
+      return result;
     },
 
     formatFontColor: (color) => {
@@ -133,14 +164,7 @@ export default {
       return label;
     }
   },
-  watch: {
-    // speakData(val) {
-    //   this.body = this.formatBody(val.body);
-    //   this.label = this.formatLabel(val.label);
-    //   this.updated_at = this.formatTime(val.updated_at);
-    //   this.created_at = val.created_at;
-    // }
-  }
+  watch: {}
 };
 </script>
 <style scoped>
@@ -148,9 +172,23 @@ export default {
   padding: 10px 20px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0.625em 3.75em 0 #eaeaea;
+  /* box-shadow: 0 0.625em 3.75em 0 #eaeaea; */
+  box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.06);
   overflow: hidden;
   margin-top: 20px;
+  transition: all 0.25s ease 0.2s,
+    transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s,
+    -webkit-transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s;
+}
+.xk-card:hover {
+  box-shadow: 0 5px 10px 8px rgba(7, 17, 27, 0.16);
+  transform: translateY(-3px);
+}
+.xk-card .xk-card-time {
+  font-size: 12px;
+  color: #a1a1a1;
+  text-shadow: #d9d9d9 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
+  margin-left: 10px;
 }
 .xk-card .xk-card-header {
   display: flex;
@@ -180,10 +218,5 @@ export default {
 .xk-card .xk-card-footer {
   display: flex;
   justify-content: space-between;
-}
-.xk-card .xk-card-footer .xk-card-time {
-  font-size: 12px;
-  color: #a1a1a1;
-  text-shadow: #d9d9d9 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
 }
 </style>

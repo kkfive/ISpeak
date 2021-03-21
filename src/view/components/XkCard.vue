@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-20 19:23:44
+ * @LastEditTime: 2021-03-21 18:39:11
  * @LastEditors: 小康
 -->
 <template>
@@ -24,7 +24,9 @@
         <div class="xk-card-time">{{ updated_at }}</div>
       </div>
       <div
-        :style="'background:' + label['color'] + ';color:' + label['fontColor']"
+        :style="
+          'background: #' + label['color'] + ';color:' + label['fontColor']
+        "
         class="xk-card-label"
       >
         {{ label['name'] }}
@@ -47,9 +49,9 @@ export default {
     };
   },
   mounted() {
-    this.body = this.formatBody(this.speakData.body);
-    this.label = this.formatLabel(this.speakData.label);
-    this.updated_at = this.formatTime(this.speakData.updated_at);
+    this.body = this.formatBody(this.speakData.content);
+    this.label = this.formatLabel(this.speakData.labels);
+    this.updated_at = this.formatTime(this.speakData.issue_update);
     this.created_at = this.speakData.created_at;
   },
   methods: {
@@ -114,6 +116,7 @@ export default {
     },
 
     formatFontColor: (color) => {
+      color = '#' + color;
       var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
       // eslint-disable-next-line no-extend-native
       String.prototype.colorRgb = function () {

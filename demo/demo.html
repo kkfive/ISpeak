@@ -46,7 +46,6 @@
             url: document.getElementById('url').value,
             el: '#tcomment',
             name: document.getElementById('name').value,
-            file: document.getElementById('file').value,
             onCommentLoaded: function() {
               console.log('评论加载完成')
             }
@@ -90,8 +89,8 @@
                   class="input"
                   id="url"
                   type="text"
-                  placeholder="e.g https://file.acs.pw/speak/"
-                  value="https://proxy.onesrc.workers.dev/ajax/https://file.acs.pw/speak/"
+                  placeholder="e.g https://ispeak-api.vercel.app/api/get"
+                  value="https://ispeak-api.vercel.app/api/get"
                 />
               </div>
             </div>
@@ -104,20 +103,6 @@
                   type="text"
                   placeholder="e.g ap-guangzhou"
                   value="小康🦄"
-                />
-              </div>
-            </div>
-            <div class="field">
-              <label class="label"
-                >第一个文件路径 | Path: <code>path</code></label
-              >
-              <div class="control">
-                <input
-                  class="input"
-                  id="file"
-                  type="text"
-                  placeholder="e.g 1.json"
-                  value="1.json"
                 />
               </div>
             </div>

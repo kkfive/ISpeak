@@ -31,48 +31,49 @@ export default {
       loading: true,
       // 用户昵称
       name: '',
-      // 下一个文件名
-      next: '',
-      // 基路径
+      // api路径
       url: '',
-      // 总页数
+      // 总数量
+      total: -1,
+      // 当前页数
       page: 1,
       flag: true,
+      limit: 5,
       message: '正在获取，请稍后！'
     };
   },
   methods: {
     // 获得当前Speak数据
-    async getSpeakData(url, path) {
-      if (path) {
-        try {
-          this.loading = true;
-          const { data } = await axios.get(url + path);
-          this.loading = false;
-          if (data.next) {
-            this.next = data.next;
-          } else {
-            this.flag = false;
-            this.message = '没有更多了！';
+    async getSpeakData(url) {
+      try {
+        this.loading = true;
+        const { data } = await axios.get(url, {
+          params: {
+            page: this.page,
+            limit: this.limit
           }
-          this.speakData = this.speakData.concat(data.data);
-        } catch (e) {
+        });
+        this.loading = false;
+        this.total = data.data.count;
+        this.page = this.page + 1;
+        this.speakData = this.speakData.concat(data.data.issue_list);
+        if (this.speakData.length == this.total) {
           this.flag = false;
-          this.message = e;
+          this.message = '已经到没有更多了！';
         }
-      } else {
+      } catch (e) {
         this.flag = false;
-        this.message = '没有更多了！';
+        this.message = e;
       }
 
       // console.log(data);
     }
   },
   async mounted() {
-    const { url, name, file } = Vue.prototype.$speakData;
+    const { url, name } = Vue.prototype.$speakData;
     this.name = name;
     this.url = url;
-    await this.getSpeakData(url, file);
+    await this.getSpeakData(url);
   },
   computed: {},
 

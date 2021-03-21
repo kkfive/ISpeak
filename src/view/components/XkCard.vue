@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-21 22:33:09
+ * @LastEditTime: 2021-03-21 22:47:28
  * @LastEditors: 小康
 -->
 <template>
@@ -200,6 +200,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
 }
 .xk-card .xk-card-header .xk-card-name {
   display: flex;

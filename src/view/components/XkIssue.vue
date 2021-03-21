@@ -2,7 +2,12 @@
   <div>
     <transition-group name="list" tag="p">
       <template v-for="mydata in speakData">
-        <xk-card :speakData="mydata" :key="mydata.number" :name="name" />
+        <xk-card
+          :speakData="mydata"
+          :key="mydata.number"
+          :name="name"
+          :avatar="avatar"
+        />
       </template>
     </transition-group>
   </div>
@@ -10,7 +15,7 @@
 <script>
 import XkCard from './XkCard.vue';
 export default {
-  props: ['speakData', 'name'],
+  props: ['speakData', 'name', 'avatar'],
   components: { XkCard },
   data() {
     return {};

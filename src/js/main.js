@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-03-05 14:51:30
  * @LastEditors: 小康
  */
-import { version } from '../../package.json'
+
 import { render } from '../view'
 
 async function init(options) {
@@ -14,4 +14,4 @@ async function init(options) {
 }
 export default init
 
-export { version, init }
+export { init }

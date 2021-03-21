@@ -3,14 +3,17 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-21 18:39:11
+ * @LastEditTime: 2021-03-21 22:33:09
  * @LastEditors: 小康
 -->
 <template>
   <div class="xk-card">
     <div class="xk-card-header">
       <div class="xk-card-name">
-        {{ name }}
+        <div class="avatar">
+          <img :src="avatar" />
+        </div>
+        <div class="name">{{ name }}</div>
         <svg
           class="is-badge"
           viewBox="0 0 512 512"
@@ -40,7 +43,7 @@
 import marked from 'marked';
 
 export default {
-  props: ['speakData', 'name'],
+  props: ['speakData', 'name', 'avatar'],
   data() {
     return {
       body: '',
@@ -207,6 +210,16 @@ export default {
   width: 20px;
   margin-left: 5px;
 }
+.xk-card .xk-card-header .xk-card-name .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.xk-card .xk-card-header .xk-card-name img {
+  width: 100%;
+  border-radius: 50%;
+}
 .xk-card .xk-card-header .xk-card-label {
   border-radius: 5px;
   padding: 0 5px;
@@ -217,6 +230,9 @@ export default {
 }
 .xk-card .xk-card-content {
   padding: 20px 0;
+}
+.xk-card .xk-card-content p img {
+  max-width: 20%;
 }
 .xk-card .xk-card-footer {
   display: flex;

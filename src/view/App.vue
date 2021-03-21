@@ -1,12 +1,11 @@
 <template>
   <div id="ispeak" class="ispeak">
-    <xk-issue :speakData="speakData" :name="name" />
+    <xk-info :count="total" />
+    <xk-issue :speakData="speakData" :name="name" :avatar="avatar" />
     <div class="loading" v-if="loading">
       <img src="https://7.dusays.com/2021/03/04/d2d5e983e2961.gif" alt="" />
     </div>
-    <button @click="getSpeakData(url, next)" v-if="flag && !loading">
-      下一页
-    </button>
+    <button @click="getSpeakData(url)" v-if="flag && !loading">下一页</button>
     <div style="text-align: center; margin-top: 20px" v-else>
       {{ message }}
     </div>
@@ -17,13 +16,15 @@
 <script>
 import XkFooter from './components/XkFooter.vue';
 import XkIssue from './components/XkIssue.vue';
+import XkInfo from './components/XkInfo.vue';
 import axios from 'axios';
 import Vue from 'vue';
 
 export default {
   components: {
     XkFooter,
-    XkIssue
+    XkIssue,
+    XkInfo
   },
   data() {
     return {
@@ -31,8 +32,14 @@ export default {
       loading: true,
       // 用户昵称
       name: '',
+      // 用户头像
+      avatar: '',
       // api路径
       url: '',
+      // 代理url
+      proxyUrl: '',
+      // 直连url
+      directUrl: '',
       // 总数量
       total: -1,
       // 当前页数
@@ -67,16 +74,37 @@ export default {
       }
 
       // console.log(data);
+    },
+    // 修改api路径
+    async changeApiUrl(flag) {
+      if (flag == true) {
+        this.url = this.proxyUrl;
+      } else {
+        this.url = this.directUrl;
+      }
+      this.page = 1;
+      this.speakData = [];
+      this.getSpeakData(this.url);
     }
   },
   async mounted() {
-    const { url, name } = Vue.prototype.$speakData;
+    const { directUrl, name, proxyUrl, avatar } = Vue.prototype.$speakData;
     this.name = name;
-    this.url = url;
-    await this.getSpeakData(url);
+    this.directUrl = directUrl;
+    this.proxyUrl = proxyUrl;
+    this.avatar = avatar;
+    const flag = localStorage.getItem('speakProxy');
+    if (flag == 'true') {
+      this.url = this.proxyUrl;
+    } else {
+      this.url = this.directUrl;
+    }
+    await this.getSpeakData(this.url);
   },
   computed: {},
-
+  created: function () {
+    Vue.prototype.$eventHub.$on('toggleProxy', this.changeApiUrl);
+  },
   watch: {}
 };
 </script>

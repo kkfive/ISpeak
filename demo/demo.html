@@ -43,9 +43,11 @@
       function init() {
         ispeak
           .init({
-            url: document.getElementById('url').value,
+            directUrl: document.getElementById('directUrl').value,
+            proxyUrl: document.getElementById('proxyUrl').value,
             el: '#tcomment',
             name: document.getElementById('name').value,
+            avatar: document.getElementById('avatar').value,
             onCommentLoaded: function() {
               console.log('评论加载完成')
             }
@@ -83,14 +85,30 @@
         <div class="columns">
           <div class="configs column">
             <div class="field">
-              <label class="label">Json File Url: <code>Url</code></label>
+              <label class="label"
+                >Json File directUrl: <code>directUrl</code></label
+              >
               <div class="control">
                 <input
                   class="input"
-                  id="url"
+                  id="directUrl"
                   type="text"
-                  placeholder="e.g https://ispeak-api.vercel.app/api/get"
-                  value="https://ispeak-api.vercel.app/api/get"
+                  placeholder="e.g https://ispeak-api.vercel.app"
+                  value="https://ispeak-api.vercel.app"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label"
+                >Json File proxyUrl: <code>proxyUrl</code></label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  id="proxyUrl"
+                  type="text"
+                  placeholder="e.g https://speak.acs.pw"
+                  value="https://speak.acs.pw"
                 />
               </div>
             </div>
@@ -103,6 +121,20 @@
                   type="text"
                   placeholder="e.g ap-guangzhou"
                   value="小康🦄"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label"
+                >头像链接 | avatar: <code>avatar</code></label
+              >
+              <div class="control">
+                <input
+                  class="input"
+                  id="avatar"
+                  type="text"
+                  placeholder="https://cdn.jsdelivr.net/npm/kang-static@latest/avatar.jpg"
+                  value="https://cdn.jsdelivr.net/npm/kang-static@latest/avatar.jpg"
                 />
               </div>
             </div>

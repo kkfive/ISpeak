@@ -1,7 +1,12 @@
 <template>
   <div id="ispeak" class="ispeak">
     <xk-info :count="total" />
-    <xk-issue :speakData="speakData" :name="name" :avatar="avatar" />
+    <xk-issue
+      :speakData="speakData"
+      :name="name"
+      :avatar="avatar"
+      :labelList="labelList"
+    />
     <div class="loading" v-if="loading">
       <img src="https://7.dusays.com/2021/03/04/d2d5e983e2961.gif" alt="" />
     </div>
@@ -29,6 +34,7 @@ export default {
   data() {
     return {
       speakData: [],
+      labelList: [],
       loading: true,
       // 用户昵称
       name: '',
@@ -54,21 +60,24 @@ export default {
     async getSpeakData(url) {
       try {
         this.loading = true;
-        const { data } = await axios.get(url, {
+        const { data } = await axios.get(url + '/api/get', {
           params: {
             page: this.page,
             limit: this.limit
           }
         });
+        const { data: labelList } = await axios.get(url + '/api/label');
         this.loading = false;
         this.total = data.data.count;
         this.page = this.page + 1;
         this.speakData = this.speakData.concat(data.data.issue_list);
+        this.labelList = labelList.data;
         if (this.speakData.length == this.total) {
           this.flag = false;
           this.message = '已经到没有更多了！';
         }
       } catch (e) {
+        console.log(e);
         this.flag = false;
         this.message = e;
       }
@@ -88,7 +97,12 @@ export default {
     }
   },
   async mounted() {
-    const { directUrl, name, proxyUrl, avatar } = Vue.prototype.$speakData;
+    const {
+      directUrl = '',
+      name,
+      proxyUrl = '',
+      avatar
+    } = Vue.prototype.$speakData;
     this.name = name;
     this.directUrl = directUrl;
     this.proxyUrl = proxyUrl;
@@ -99,7 +113,12 @@ export default {
     } else {
       this.url = this.directUrl;
     }
-    await this.getSpeakData(this.url);
+    if (directUrl || proxyUrl) {
+      await this.getSpeakData(this.url);
+    } else {
+      this.loading = true;
+      this.message = '请输入正确的api接口地址哦！';
+    }
   },
   computed: {},
   created: function () {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <XKAccordion :labelList="labelList"></XKAccordion>
     <transition-group name="list" tag="p">
       <template v-for="mydata in speakData">
         <xk-card
@@ -14,9 +15,10 @@
 </template>
 <script>
 import XkCard from './XkCard.vue';
+import XKAccordion from './XKAccordion.vue';
 export default {
-  props: ['speakData', 'name', 'avatar'],
-  components: { XkCard },
+  props: ['speakData', 'name', 'avatar', 'labelList'],
+  components: { XkCard, XKAccordion },
   data() {
     return {};
   }

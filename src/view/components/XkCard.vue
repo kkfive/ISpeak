@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-21 22:47:28
+ * @LastEditTime: 2021-03-23 10:58:16
  * @LastEditors: 小康
 -->
 <template>
@@ -26,17 +26,21 @@
         </svg>
         <div class="xk-card-time">{{ updated_at }}</div>
       </div>
-      <div
-        :style="
-          'background: #' + label['color'] + ';color:' + label['fontColor']
-        "
-        class="xk-card-label"
-      >
-        {{ label['name'] }}
-      </div>
     </div>
     <div class="xk-card-content" v-html="body"></div>
-    <div class="xk-card-footer"></div>
+    <div class="xk-card-footer">
+      <template v-for="label in labelList">
+        <div
+          :style="
+            'background: #' + label['color'] + ';color:' + label['fontColor']
+          "
+          class="xk-card-label"
+          :key="label.label_id"
+        >
+          {{ label['name'] }}
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 <script>
@@ -48,12 +52,12 @@ export default {
     return {
       body: '',
       updated_at: '',
-      label: {}
+      labelList: []
     };
   },
   mounted() {
     this.body = this.formatBody(this.speakData.content);
-    this.label = this.formatLabel(this.speakData.labels);
+    this.labelList = this.formatLabel(this.speakData.labels);
     this.updated_at = this.formatTime(this.speakData.issue_update);
     this.created_at = this.speakData.created_at;
   },
@@ -157,17 +161,25 @@ export default {
       return flag;
     },
     formatLabel(labelList) {
-      const label = {
-        fontColor: 'white',
-        name: '默认',
-        color: 'rgb(245, 150, 170)'
-      };
+      const mylabelList = [];
       if (labelList.length) {
-        label.name = labelList[0].name;
-        label.color = labelList[0].color;
-        label.fontColor = this.formatFontColor(labelList[0].color);
+        for (let label of labelList) {
+          mylabelList.push({
+            label_id: label.label_id,
+            name: label.name,
+            color: label.color,
+            fontColor: this.formatFontColor(label.color)
+          });
+        }
+      } else {
+        mylabelList.push({
+          fontColor: 'white',
+          name: '默认',
+          color: 'rgb(245, 150, 170)'
+        });
       }
-      return label;
+
+      return mylabelList;
     }
   },
   watch: {}
@@ -222,22 +234,27 @@ export default {
   width: 100%;
   border-radius: 50%;
 }
-.xk-card .xk-card-header .xk-card-label {
-  border-radius: 5px;
-  padding: 0 5px;
-  font-weight: 550;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 rgb(27 31 35 / 12%);
-  font-size: 14px;
-}
+
 .xk-card .xk-card-content {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 .xk-card .xk-card-content p img {
   max-width: 20%;
 }
 .xk-card .xk-card-footer {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  padding-bottom: 10px;
+}
+.xk-card .xk-card-footer .xk-card-label {
+  border-radius: 5px;
+  padding: 0 5px;
+  font-weight: 550;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 rgb(27 31 35 / 12%);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 10px;
 }
 </style>

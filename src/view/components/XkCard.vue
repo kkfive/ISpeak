@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-23 10:58:16
+ * @LastEditTime: 2021-03-25 15:41:31
  * @LastEditors: 小康
 -->
 <template>
@@ -189,7 +189,7 @@ export default {
 .xk-card {
   padding: 10px 20px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
   /* box-shadow: 0 0.625em 3.75em 0 #eaeaea; */
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.06);
   overflow: hidden;
@@ -212,8 +212,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 20px;
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px; */
 }
 .xk-card .xk-card-header .xk-card-name {
   display: flex;

@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-25 15:41:31
+ * @LastEditTime: 2021-03-29 12:44:35
  * @LastEditors: 小康
 -->
 <template>
@@ -63,7 +63,15 @@ export default {
   },
   methods: {
     formatBody: (body) => {
-      return marked(body);
+      const renderer = {
+        image(href, title, text) {
+          return `<a href="${href}" target="_blank" data-fancybox="group" class="fancybox">
+           <img src="${href}" alt='${text}'>
+          </a>`;
+        }
+      };
+      marked.use({ renderer });
+      return marked(body, { breaks: true, gfm: true });
     },
     // format time
     // code from https://www.heson10.com/posts/3510.html
@@ -190,13 +198,13 @@ export default {
   padding: 10px 20px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
-  /* box-shadow: 0 0.625em 3.75em 0 #eaeaea; */
   box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.06);
   overflow: hidden;
   margin-top: 20px;
   transition: all 0.25s ease 0.2s,
     transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s,
     -webkit-transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s;
+  user-select: none;
 }
 .xk-card:hover {
   box-shadow: 0 5px 10px 8px rgba(7, 17, 27, 0.16);
@@ -204,7 +212,6 @@ export default {
 }
 .xk-card .xk-card-time {
   font-size: 12px;
-  color: #a1a1a1;
   text-shadow: #d9d9d9 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
   margin-left: 10px;
 }
@@ -212,14 +219,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 20px; */
 }
 .xk-card .xk-card-header .xk-card-name {
   display: flex;
   align-items: center;
 }
-.xk-card .xk-card-header .xk-card-name svg {
+.xk-card .xk-card-header .xk-card-name .is-badge {
   height: 20px;
   width: 20px;
   margin-left: 5px;
@@ -230,7 +235,7 @@ export default {
   border-radius: 50%;
   margin-right: 10px;
 }
-.xk-card .xk-card-header .xk-card-name img {
+.xk-card .xk-card-header .xk-card-name .avatar-img {
   width: 100%;
   border-radius: 50%;
 }
@@ -238,12 +243,25 @@ export default {
 .xk-card .xk-card-content {
   padding: 10px 0;
 }
-.xk-card .xk-card-content p img {
-  max-width: 20%;
+
+@media screen and (min-width: 768px) {
+  #article-container .xk-card-content >>> .fancybox,
+  #article-container .xk-card-content >>> video {
+    display: inline-block;
+    max-width: 24%;
+  }
 }
+
+@media screen and (max-width: 768px) {
+  #article-container .xk-card-content >>> .fancybox,
+  #article-container .xk-card-content >>> video {
+    display: inline-block;
+    max-width: 49%;
+  }
+}
+
 .xk-card .xk-card-footer {
   display: flex;
-  /* justify-content: space-between; */
   padding-bottom: 10px;
 }
 .xk-card .xk-card-footer .xk-card-label {

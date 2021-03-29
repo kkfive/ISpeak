@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-23 10:53:04
- * @LastEditTime: 2021-03-23 12:15:11
+ * @LastEditTime: 2021-03-29 12:56:47
  * @LastEditors: 小康
  * comments: code modify from:https://tomotoes.com/blog/weibo/
 -->
@@ -20,9 +20,7 @@
         <div class="details-wrapper" style="">
           <div class="details-styling">
             <p>这是关于小康的Speak</p>
-            <p>speak对我来说的意义是一个吐槽以及表达心中想法的工具</p>
-            <p></p>
-            <p></p>
+            <p>speak对我来说的意义是一个想法集，而哔哔则是一个吐槽记录。</p>
           </div>
         </div>
       </transition>
@@ -180,8 +178,8 @@ export default {
   margin-top: 2em;
   transition: all 0.25s ease;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0.625em 3.75em 0 #eaeaea;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0.625em 3.75em 0 rgba(255, 255, 255, 0.2);
   transition: all 0.25s ease 0.2s,
     transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s;
   font-size: 1em;
@@ -194,7 +192,7 @@ export default {
   list-style: circle !important;
 }
 .about-container:hover {
-  box-shadow: 0 1em 4em 0.5em #d7d7d7;
+  /* box-shadow: 0 1em 4em 0.5em #d7d7d7; */
   transform: translatey(-3px);
 }
 .about-container code {

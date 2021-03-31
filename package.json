@@ -1,6 +1,6 @@
 {
   "name": "ispeak",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "",
   "author": "DreamyTZK",
   "license": "MIT",
@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "highlight.js": "^10.7.1",
     "marked": "^2.0.0",
     "vue": "^2.6.12"
   }

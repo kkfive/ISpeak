@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-29 12:44:35
+ * @LastEditTime: 2021-03-31 18:12:06
  * @LastEditors: 小康
 -->
 <template>
@@ -11,7 +11,7 @@
     <div class="xk-card-header">
       <div class="xk-card-name">
         <div class="avatar">
-          <img :src="avatar" />
+          <img class="avatar-img" :src="avatar" />
         </div>
         <div class="name">{{ name }}</div>
         <svg
@@ -44,7 +44,9 @@
   </div>
 </template>
 <script>
+import 'highlight.js/styles/atom-one-dark.css';
 import marked from 'marked';
+import hljs from 'highlight.js';
 
 export default {
   props: ['speakData', 'name', 'avatar'],
@@ -70,15 +72,28 @@ export default {
           </a>`;
         }
       };
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        highlight: function (code) {
+          return hljs.highlightAuto(code).value;
+        },
+        pedantic: false,
+        gfm: true,
+        tables: true,
+        breaks: true,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false
+      });
       marked.use({ renderer });
-      return marked(body, { breaks: true, gfm: true });
+      return marked(body);
     },
     // format time
     // code from https://www.heson10.com/posts/3510.html
     formatTime: (time) => {
       const date = new Date(time);
       const dateTimeStamp = date.getTime();
-
       let result = '';
       //友好地显示时间
       var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
@@ -204,7 +219,6 @@ export default {
   transition: all 0.25s ease 0.2s,
     transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s,
     -webkit-transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s;
-  user-select: none;
 }
 .xk-card:hover {
   box-shadow: 0 5px 10px 8px rgba(7, 17, 27, 0.16);
@@ -219,6 +233,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  user-select: none;
 }
 .xk-card .xk-card-header .xk-card-name {
   display: flex;
@@ -239,7 +254,9 @@ export default {
   width: 100%;
   border-radius: 50%;
 }
-
+.xk-card .xk-card-header .xk-card-name .name {
+  font-weight: 600;
+}
 .xk-card .xk-card-content {
   padding: 10px 0;
 }
@@ -263,6 +280,7 @@ export default {
 .xk-card .xk-card-footer {
   display: flex;
   padding-bottom: 10px;
+  user-select: none;
 }
 .xk-card .xk-card-footer .xk-card-label {
   border-radius: 5px;

@@ -3,7 +3,7 @@
  * @author: 小康
  * @url: https://xiaokang.me
  * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-03-31 18:12:06
+ * @LastEditTime: 2021-06-20 16:27:40
  * @LastEditors: 小康
 -->
 <template>
@@ -252,6 +252,7 @@ export default {
 }
 .xk-card .xk-card-header .xk-card-name .avatar-img {
   width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 .xk-card .xk-card-header .xk-card-name .name {

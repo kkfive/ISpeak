@@ -20,7 +20,10 @@
         <div class="details-wrapper" style="">
           <div class="details-styling">
             <p>这是关于小康的Speak</p>
-            <p>speak对我来说的意义是一个想法集，而哔哔则是一个吐槽记录。</p>
+            <p>
+              speak
+              4.x版本将哔哔与原Speak整合成一个，这样吐槽和记录就可以放在一起了。
+            </p>
           </div>
         </div>
       </transition>
@@ -33,23 +36,35 @@
       <transition name="fade">
         <div class="details-wrapper" style="">
           <div class="details-styling">
-            <p>目前，微博共有{{ labelList.count }}个分类，具体如下：</p>
+            <p>目前，微博共有{{ labelList.length }}个分类，具体如下：</p>
             <div class="labels-container">
-              <template v-for="label in labelList.label_list">
-                <span
-                  class="labels-label"
-                  :style="
-                    'background-color: #' +
-                    label.color +
-                    '; color: ' +
-                    formatFontColor(label.color) +
-                    ';'
-                  "
-                  :key="label.label_id"
-                  >{{ label.name }}</span
-                >
-              </template>
+              <span
+                v-for="label in labelList"
+                class="labels-label"
+                :style="
+                  'background-color: ' +
+                  label.bgColor +
+                  '; color: ' +
+                  formatFontColor(label.bgColor) +
+                  ';'
+                "
+                :key="label.label_id"
+                >{{ label.name }}</span
+              >
             </div>
+          </div>
+        </div>
+      </transition>
+    </details>
+    <!-- 登录 -->
+    <details v-bind:class="{ 'panel-active': third, '': !third }">
+      <summary @click="toggle('third')">
+        <span role="img" aria-label="about-content">🎈 登录Speak</span>
+      </summary>
+      <transition name="fade">
+        <div class="details-wrapper" style="">
+          <div class="details-styling">
+            <loginView></loginView>
           </div>
         </div>
       </transition>
@@ -57,59 +72,70 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: ['labelList'],
-  data() {
-    return {
-      first: false,
-      second: false
-    };
-  },
-  methods: {
-    toggle(attr) {
-      this[attr] = !this[attr];
-    },
-    formatFontColor: (color) => {
-      color = '#' + color;
-      var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-      // eslint-disable-next-line no-extend-native
-      String.prototype.colorRgb = function () {
-        var sColor = this.toLowerCase();
-        if (sColor && reg.test(sColor)) {
-          if (sColor.length === 4) {
-            var sColorNew = '#';
-            for (var i = 1; i < 4; i += 1) {
-              sColorNew += sColor
-                .slice(i, i + 1)
-                .concat(sColor.slice(i, i + 1));
-            }
-            sColor = sColorNew;
-          }
-          //处理六位的颜色值
-          var sColorChange = [];
-          for (var i = 1; i < 7; i += 2) {
-            sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)));
-          }
-          return 'RGB(' + sColorChange.join(',') + ')';
-        } else {
-          return sColor;
-        }
-      };
-      var flag = 'white';
-      var rgbColor = color.colorRgb();
+<script setup lang="ts">
+import { computed, PropType, ref } from 'vue'
+import loginView from '@/components/login.vue'
+const props = defineProps({
+  labelList: {
+    type: Array as PropType<any[]>
+  }
+})
 
-      rgbColor = rgbColor.replace('RGB(', '');
-      rgbColor = rgbColor.replace(')', '');
-      var temp = rgbColor.split(',');
-      if (parseInt(temp[0]) + parseInt(temp[1]) + parseInt(temp[2]) > 450) {
-        // console.log(parseInt(temp[0]) + parseInt(temp[1]) + parseInt(temp[2]));
-        flag = 'black';
+const labelList = computed(() => {
+  if (props.labelList) {
+    return props.labelList
+  } else {
+    return []
+  }
+})
+
+const first = ref(false)
+const second = ref(false)
+const third = ref(false)
+const toggle = (attr) => {
+  if (attr === 'first') {
+    first.value = !first.value
+  } else if (attr === 'second') {
+    second.value = !second.value
+  } else if (attr === 'third') {
+    third.value = !third.value
+  }
+}
+const formatFontColor = (color: string) => {
+  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/
+  // eslint-disable-next-line no-extend-native
+  String.prototype['colorRgb'] = function () {
+    var sColor = color.toLowerCase()
+    if (sColor && reg.test(sColor)) {
+      if (sColor.length === 4) {
+        var sColorNew = '#'
+        for (var i = 1; i < 4; i += 1) {
+          sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1))
+        }
+        sColor = sColorNew
       }
-      return flag;
+      //处理六位的颜色值
+      var sColorChange: any[] = []
+      for (var i = 1; i < 7; i += 2) {
+        sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)))
+      }
+      return 'RGB(' + sColorChange.join(',') + ')'
+    } else {
+      return sColor
     }
   }
-};
+  var flag = 'white'
+  var rgbColor = (color as any).colorRgb()
+
+  rgbColor = rgbColor.replace('RGB(', '')
+  rgbColor = rgbColor.replace(')', '')
+  var temp = rgbColor.split(',')
+  if (parseInt(temp[0]) + parseInt(temp[1]) + parseInt(temp[2]) > 450) {
+    // console.log(parseInt(temp[0]) + parseInt(temp[1]) + parseInt(temp[2]));
+    flag = 'black'
+  }
+  return flag
+}
 </script>
 
 <style scoped>

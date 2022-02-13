@@ -6,18 +6,8 @@
   </div>
 </template>
 
-<script>
-import { version } from '../../../package.json';
-
-export default {
-  data() {
-    return {
-      version
-    };
-  },
-  methods: {},
-  mounted() {}
-};
+<script setup>
+import { version } from '../../package.json'
 </script>
 
 <style scoped>

@@ -37,7 +37,8 @@ export default defineConfig({
     analyze({ summaryOnly: true }),
     externalGlobals({
       'highlight.js': 'hljs',
-      marked: 'marked'
+      marked: 'marked',
+      '@waline/client': 'Waline'
     })
   ],
   resolve: {

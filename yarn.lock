@@ -563,6 +563,11 @@
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.2.30.tgz#e2ba8f6692399c27c81c668ecd3f1a4e13ee2f5e"
   integrity sha512-B3HouBtUxcfu2w2d+VhdLcVBXKYYhXiFMAfQ+hoe8NUhKkPRkWDIqhpuehCZxVQ3S2dN1P1WfKGlxGC+pfmxGg==
 
+"@waline/client@^1.5.4":
+  version "1.5.4"
+  resolved "https://registry.npmmirror.com/@waline/client/-/client-1.5.4.tgz#c52a5479df8db6cede2f176b1d8d7829f08ab6d0"
+  integrity sha512-IQa05eVAkBL2brSc1EM+vnPb7yjRSkOZP7YBd0BMIXLxHSJwu0PvdSi+iUgZeXZQfLrbe3QKvyq0Z6yhqAop1g==
+
 acorn@^7.1.1:
   version "7.4.1"
   resolved "https://registry.npmmirror.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"

@@ -7,6 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@waline/client": "^1.5.4",
     "axios": "^0.25.0",
     "highlight.js": "^11.4.0",
     "marked": "^4.0.12",

@@ -30,7 +30,7 @@ export { init }
 if (import.meta.env.DEV) {
   init({
     el: '#app',
-    url: 'http://127.0.0.1:3000/',
+    url: 'https://kkapi-dev.vercel.app/',
     author: '61fe93508fd621d39a155725',
 
     loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',

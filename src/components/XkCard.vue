@@ -1,13 +1,8 @@
 <!--
  * @description: 卡片
- * @author: 小康
- * @url: https://xiaokang.me
- * @Date: 2021-03-19 09:17:45
- * @LastEditTime: 2021-06-20 16:27:40
- * @LastEditors: 小康
 -->
 <template>
-  <div class="xk-card">
+  <div class="xk-card" :id="props.speakData._id">
     <div class="xk-card-header">
       <div class="xk-card-name">
         <div class="avatar">
@@ -26,6 +21,40 @@
         </svg>
         <div class="xk-card-time">
           {{ formatTime(props.speakData.createAt) }}
+        </div>
+        <div
+          @click="toComment"
+          v-if="props.speakData?.showComment === '1'"
+          style="
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #666;
+            margin-left: 10px;
+          "
+        >
+          <svg
+            t="1645242166845"
+            class="icon"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="4833"
+            width="25"
+            height="25"
+          >
+            <path
+              d="M572.27 118H97.15C78.92 118 64 132.91 64 151.13v472.04c0 18.22 14.92 33.13 33.15 33.13h95.28c9.3 0 18.16 3.9 24.44 10.75l66.94 100.14c6.57 7.17 17.87 7.17 24.44 0l116.67-100.14a33.162 33.162 0 0 1 24.44-10.75h343.9c18.23 0 33.15-14.91 33.15-33.13V151.13c0-18.22-14.92-33.13-33.15-33.13h-74.58M258.75 440.97c-27.46 0-49.72-22.25-49.72-49.69 0-27.44 22.26-49.69 49.72-49.69s49.72 22.25 49.72 49.69c0 27.45-22.26 49.69-49.72 49.69z m186.46 0c-27.46 0-49.72-22.25-49.72-49.69 0-27.44 22.26-49.69 49.72-49.69 27.46 0 49.72 22.25 49.72 49.69 0 27.45-22.26 49.69-49.72 49.69z m186.46 0c-27.46 0-49.72-22.25-49.72-49.69 0-27.44 22.26-49.69 49.72-49.69 27.46 0 49.72 22.25 49.72 49.69 0 27.45-22.26 49.69-49.72 49.69z"
+              fill="#FFBB88"
+              p-id="4834"
+            ></path>
+            <path
+              d="M926.85 251.45h-49.72V673.8c0 18.22-14.92 33.13-33.15 33.13H483.51c-9.29 0-18.16 3.9-24.44 10.75l-83.96 72.06h199.52c9.29 0 18.16 3.9 24.44 10.75l116.67 100.14c6.57 7.17 17.87 7.17 24.44 0l66.94-100.14a33.162 33.162 0 0 1 24.44-10.75h95.28c18.23 0 33.15-14.91 33.15-33.13V284.58c0.01-18.22-14.91-33.13-33.14-33.13z"
+              fill="#FF9852"
+              p-id="4835"
+            ></path>
+          </svg>
+          评论
         </div>
       </div>
     </div>
@@ -53,7 +82,7 @@
 // import 'highlight.js/styles/atom-one-dark.css'
 import marked from 'marked'
 import hljs from 'highlight.js'
-import { PropType, ref } from 'vue'
+import { PropType, ref, defineEmits, toRefs } from 'vue'
 const props = defineProps({
   speakData: {
     type: Object as PropType<any>
@@ -62,6 +91,7 @@ const props = defineProps({
     type: Array as PropType<any[]>
   }
 })
+const emits = defineEmits(['comment', 'closeComment'])
 
 const formatBody = (body) => {
   const renderer = {
@@ -183,6 +213,14 @@ const formatLabel = (speakData) => {
     return {}
   }
 }
+
+const toComment = () => {
+  emits('comment', {
+    id: props.speakData._id,
+    content: props.speakData.content,
+    title: props.speakData.title
+  })
+}
 </script>
 <style scoped lang="scss">
 .xk-card {
@@ -271,5 +309,7 @@ const formatLabel = (speakData) => {
   cursor: pointer;
   user-select: none;
   margin-right: 10px;
+  height: 25px;
+  line-height: 25px;
 }
 </style>

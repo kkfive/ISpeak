@@ -1,11 +1,29 @@
 <template>
   <div id="ispeak" class="ispeak">
-    <xk-issue :speakData="speakData" :labelList="labelList" />
+    <transition name="fade">
+      <xk-issue
+        :speakData="speakData"
+        :labelList="labelList"
+        @comment="showComment"
+        v-show="!commentShow"
+      />
+    </transition>
+    <transition name="fade">
+      <comments
+        :speakData="commentSpeakData"
+        v-show="commentShow"
+        @closeComment="closeComment"
+      ></comments>
+    </transition>
     <div class="loading" v-if="loading">
       <img src="https://7.dusays.com/2021/03/04/d2d5e983e2961.gif" alt="" />
     </div>
     <button @click="getSpeakData(url)" v-if="flag && !loading">下一页</button>
-    <div style="text-align: center; margin-top: 20px" v-else>
+    <div
+      style="text-align: center; margin-top: 20px"
+      v-show="!commentShow"
+      v-else
+    >
       {{ message }}
     </div>
     <xk-footer />
@@ -16,10 +34,13 @@
 import XkFooter from '@/components/XkFooter.vue'
 import XkIssue from '@/components/XkIssue.vue'
 import axios from 'axios'
-import { inject, onMounted, ref } from 'vue'
+
+import { inject, onMounted, ref, toRefs } from 'vue'
 import { initOptions } from '../../types/parameter'
+import Comments from '@/components/comments.vue'
 const speakData = ref<any[]>([])
 const labelList = ref<any[]>([])
+
 const loading = ref(true)
 const url = ref('')
 const total = ref(-1)
@@ -29,6 +50,8 @@ const limit = ref(5)
 const author = ref('')
 const message = ref('正在获取，请稍后！')
 const userConfig = inject('option') as initOptions
+const commentSpeakData = ref<{}>({})
+const commentShow = ref<boolean>(false)
 const getSpeakData = async (url) => {
   try {
     loading.value = true
@@ -70,9 +93,22 @@ onMounted(async () => {
   author.value = userConfig.author
   await getSpeakData(url.value)
 })
+const showComment = (speakCommentOptions) => {
+  commentSpeakData.value = speakCommentOptions
+  commentShow.value = true
+  window.scroll({ behavior: 'smooth', top: 0 })
+}
+const closeComment = (data) => {
+  commentShow.value = false
+  setTimeout(() => {
+    document
+      .getElementById(data.id)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  })
+}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .loading {
   text-align: center;
 }
@@ -106,5 +142,18 @@ button {
   background-size: 1000% 1000%;
   animation: Gradient 90s linear infinite;
   outline: 0;
+}
+.ispeak {
+  position: relative;
+}
+.fade-enter-active {
+  transition: transform 0.5s ease-out;
+}
+
+.fade-enter-from {
+  transform: translateY(3px);
+}
+.fade-leave-to {
+  transform: translateY(-3px);
 }
 </style>

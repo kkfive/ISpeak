@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <XKAccordion :labelList="props.labelList"></XKAccordion> -->
+    <XKAccordion :labelList="props.labelList"></XKAccordion>
     <xk-card
       v-for="(mydata, index) in props.speakData"
       :speakData="mydata"

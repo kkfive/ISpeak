@@ -2,6 +2,7 @@
   "name": "ispeak",
   "version": "4.1.1",
   "homepage": "https://www.antmoe.com/speak/",
+  "main": "ispeak.umd.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

@@ -144,7 +144,6 @@ const hideComment = () => {
     font-size: 14px;
     cursor: pointer;
     user-select: none;
-    margin-right: 10px;
     height: 25px;
     line-height: 25px;
   }

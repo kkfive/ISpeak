@@ -99,12 +99,14 @@ const hideComment = () => {
     font-size: 12px;
     text-shadow: #d9d9d9 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
     margin-left: 5px;
+    white-space: nowrap;
   }
   .speak-body-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    flex-wrap: wrap;
     .speak-body-card-name {
       display: flex;
       align-items: center;
@@ -121,6 +123,8 @@ const hideComment = () => {
       }
       .name {
         font-weight: 600;
+        white-space: nowrap;
+        margin-bottom: 10px;
       }
       .is-badge {
         height: 20px;
@@ -155,6 +159,7 @@ const hideComment = () => {
       display: flex;
       align-items: center;
       cursor: pointer;
+      user-select: none;
       color: #666;
       margin-left: 10px;
     }
@@ -174,6 +179,7 @@ const hideComment = () => {
       border-radius: 5px;
       margin: 0 auto;
       cursor: pointer;
+      user-select: none;
       transform: translateZ(0);
       box-shadow: 0 0 1px rgba(0, 0, 0, 0);
       color: #efd9a0;

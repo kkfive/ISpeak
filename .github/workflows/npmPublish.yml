@@ -40,6 +40,8 @@ jobs:
           export TZ='Asia/Shanghai'
           yarn run build
           cp package.json ./dist/package.json
+          cp ./dist/ispeak.umd.js ./dist/ispeak.min.js
+          cp ./dist/style.css ./dist/ispeak.min.css
 
       - name: 6. 发布包
         run: |

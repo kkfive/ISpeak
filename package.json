@@ -1,6 +1,7 @@
 {
   "name": "ispeak",
-  "version": "4.1.0",
+  "version": "4.1.1",
+  "homepage": "https://www.antmoe.com/speak/",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

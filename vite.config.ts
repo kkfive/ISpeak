@@ -38,6 +38,7 @@ export default defineConfig({
     externalGlobals({
       'highlight.js': 'hljs',
       marked: 'marked',
+      axios: 'axios',
       '@waline/client': 'Waline'
     })
   ],

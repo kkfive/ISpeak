@@ -1,72 +1,33 @@
-/**
-普通样式友链动画 --- Start
-**/
-/**
-  呼吸灯效果
-**/
-@keyframes link-custom {
-  from {
-    box-shadow: 0 0 5px var(--primary-color, grey),
-      inset 0 0 5px var(--primary-color, grey),
-      0 1px 0 var(--primary-color, grey);
-  }
-  to {
-    box-shadow: 0 0 20px var(--primary-color, grey),
-      inset 0 0 10px var(--primary-color, grey),
-      0 1px 0 var(--primary-color, grey);
-  }
-}
-
-/**
-  闪烁呼吸灯
-**/
-@keyframes borderFlash {
-  from {
-    border-color: transparent;
-  }
-  to {
-    border-color: var(--primary-color, grey);
-  }
-}
-
-/**
-  霓虹灯效果边框动画
-**/
-@keyframes link-custom1 {
+@keyframes Gradient {
   0% {
-    box-shadow: 0 0 4px #ca00ff;
+    background-position: 0 50%;
   }
-  25% {
-    box-shadow: 0 0 16px #00b5e5;
-  }
+
   50% {
-    box-shadow: 0 0 4px #00f;
+    background-position: 100% 50%;
   }
-  75% {
-    box-shadow: 0 0 16px #b1da21;
+
+  to {
+    background-position: 0 50%;
+  }
+}
+@keyframes wobble-horizontal {
+  16.65% {
+    transform: translateX(8px);
+  }
+  33.3% {
+    transform: translateX(-6px);
+  }
+  49.95% {
+    transform: translateX(4px);
+  }
+  66.6% {
+    transform: translateX(-2px);
+  }
+  83.25% {
+    transform: translateX(1px);
   }
   100% {
-    box-shadow: 0 0 4px red;
+    transform: translateX(0);
   }
 }
-/**
-普通样式友链动画 --- End
-**/
-
-@keyframes auto-rotate-left {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-@keyframes auto-rotate-right {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-

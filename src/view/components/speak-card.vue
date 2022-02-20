@@ -110,6 +110,7 @@ const hideComment = () => {
     .speak-body-card-name {
       display: flex;
       align-items: center;
+      margin-bottom: 10px;
       .avatar {
         width: 32px;
         height: 32px;
@@ -124,7 +125,6 @@ const hideComment = () => {
       .name {
         font-weight: 600;
         white-space: nowrap;
-        margin-bottom: 10px;
       }
       .is-badge {
         height: 20px;

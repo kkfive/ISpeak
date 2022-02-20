@@ -1,6 +1,5 @@
 import { initOptions } from './types/parameter'
 import { createApp } from 'vue'
-import VueLazyloadNext from 'vue-lazyload-next'
 import App from './view/App.vue'
 import '@/styles/animation.scss'
 declare global {
@@ -17,12 +16,6 @@ const defaultInitOption: initOptions = {
 const render = (options: initOptions) => {
   const app = createApp(App)
   app.provide('option', options)
-  // app.use(VueLazyloadNext, {
-  //   preLoad: 1.3,
-  //   error: options.fail_img,
-  //   loading: options.loading_img,
-  //   attempt: 1
-  // })
   return app.mount(options.el || '#ispeak')
 }
 

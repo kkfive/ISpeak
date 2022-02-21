@@ -38,6 +38,13 @@ export interface initOptions {
   fail_img?: string
   // loading的图片
   loading_img?: string
+  // 第一个评论的类型
+  initCommentName?: string
   // 评论选项
-  commentOptions?: DisscussInitOption
+  initCommentOptions?: any
+
+  // 全局对象类型的评论
+  globalCommentName?: string
+  // 评论选项
+  globalCommentOptions?: any
 }

@@ -33,7 +33,8 @@ if (import.meta.env.DEV) {
     author: '61fe93508fd621d39a155725',
     pageSize: 10,
     loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
-    commentOptions: {
+    initCommentName: 'Discuss',
+    initCommentOptions: {
       serverURLs: 'https://kkdiscuss.vercel.app/'
     }
   })

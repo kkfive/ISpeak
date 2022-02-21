@@ -7,7 +7,8 @@
       @closeComment="hideCommentHandler"
     />
     <div class="comment-container">
-      <div class="comment" id="discuess-comment-container"></div>
+      <div class="comment" id="comment-one-container"></div>
+      <div class="comment" id="comment-two-container"></div>
     </div>
   </div>
 </template>
@@ -29,12 +30,21 @@ onMounted(() => {
     document
       .getElementById(props.speak._id)
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    window['Discuss'].init({
-      imgLoading: userConfig.loading_img, // 评论图片懒加载，加载动画，默认为1像素白色base64图
-      ...userConfig.commentOptions,
-      el: '#discuess-comment-container', // 将评论挂载到某个DOM上
-      path: window.location.href + '#' + props.speak._id // 网站的唯一标识符，评论会根据该标识返回评论，默认: location.pathname
-    })
+
+    if (userConfig.initCommentName) {
+      window[userConfig.initCommentName]?.init({
+        ...userConfig.initCommentOptions,
+        el: '#comment-one-container', // 将评论挂载到某个DOM上
+        path: '#' + props.speak._id // 网站的唯一标识符，评论会根据该标识返回评论，默认: location.pathname
+      })
+    }
+    if (userConfig.globalCommentName) {
+      window[userConfig.globalCommentName]({
+        ...userConfig.globalCommentOptions,
+        el: '#comment-two-container', // 将评论挂载到某个DOM上
+        path: '#' + props.speak._id // 网站的唯一标识符，评论会根据该标识返回评论，默认: location.pathname
+      })
+    }
   })
 })
 

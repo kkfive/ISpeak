@@ -33,7 +33,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    visualizer({ template: 'sunburst' }),
+    visualizer(),
     analyze({ summaryOnly: true }),
     externalGlobals({
       'highlight.js': 'hljs',

@@ -6,7 +6,12 @@
     <div class="speak-body-card-header">
       <div class="speak-body-card-name">
         <div class="avatar">
-          <img class="avatar-img" :src="props.speak.author.avatar" />
+          <img
+            class="avatar-img"
+            :speak-src="props.speak.author.avatar"
+            :src="userConfig.loading_img"
+            alt="avatar"
+          />
         </div>
         <div class="name">{{ props.speak.author.nickName }}</div>
         <svg-badge style="margin-left: 10px" :height="20" :width="20" />
@@ -48,14 +53,18 @@
   </div>
 </template>
 <script setup lang="ts">
-import { PropType, ref, defineEmits, toRefs } from 'vue'
+import { PropType, ref, defineEmits, toRefs, inject, onMounted } from 'vue'
 import SvgComment from '../svg/svg-comment.vue'
 import SvgBadge from '../svg/svg-badge.vue'
 import SvgBack from '../svg/svg-back.vue'
 import { SpeakType } from '@/types/speak'
 import { timeAgo, formatFontColor } from '@/utils/utils'
 import { markedRender } from '@/utils/markedRender'
+import { initOptions } from '@/types/parameter'
 
+import { lazyloadImage } from '@/utils/lazyload'
+
+const userConfig = inject('option') as initOptions
 const props = defineProps({
   speak: {
     type: Object as PropType<SpeakType>,
@@ -79,6 +88,10 @@ const toComment = () => {
 const hideComment = () => {
   emits('closeComment', { ...props.speak })
 }
+onMounted(() => {
+  console.log('子组件渲染完成')
+  lazyloadImage()
+})
 </script>
 <style scoped lang="scss">
 .speak-body-card {

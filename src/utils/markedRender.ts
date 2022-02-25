@@ -1,10 +1,13 @@
 import marked from 'marked'
 import hljs from 'highlight.js'
+import { inject } from 'vue'
+import { initOptions } from '@/types/parameter'
+const userConfig = inject('option') as initOptions
 export const markedRender = (body) => {
   const renderer = {
     image(href, title, text) {
       return `<a href="${href}" target="_blank" data-fancybox="group" class="fancybox">
-           <img src="${href}" alt='${text}'>
+           <img speak-src="${href}" src=${userConfig.loading_img} alt='${text}'>
           </a>`
     }
   }

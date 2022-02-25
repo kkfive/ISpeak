@@ -20,6 +20,7 @@ import SpeakFooter from './components/speak-footer.vue'
 import { inject, onMounted, reactive, ref } from 'vue'
 import { initOptions } from '@/types/parameter'
 import { SpeakType, TagType } from '@/types/speak'
+import { lazyloadImage } from '@/utils/lazyload'
 const userConfig = inject('option') as initOptions
 /**
  * loading状态标识

@@ -32,10 +32,11 @@
 
 <script lang="ts" setup>
 import { SpeakType } from '@/types/speak'
-import { PropType, ref, defineEmits } from 'vue'
+import { PropType, ref, defineEmits, onMounted } from 'vue'
 import SpeakCard from './speak-card.vue'
 import SpeakComments from '../components/speak-comments.vue'
 import CardLoading from '@/view/components/card-loading.vue'
+import { lazyloadImage } from '@/utils/lazyload'
 
 const props = defineProps({
   speakList: {
@@ -52,6 +53,7 @@ const props = defineProps({
     type: Boolean as PropType<boolean>
   }
 })
+
 const emits = defineEmits(['nextSpeak'])
 const speak = ref<null | SpeakType>(null)
 const showCommentHandler = (data: SpeakType) => {
@@ -68,6 +70,10 @@ const hideCommentHandler = (data) => {
 const getSpeakData = () => {
   emits('nextSpeak')
 }
+onMounted(() => {
+  console.log('父组件渲染完成')
+  lazyloadImage()
+})
 </script>
 
 <style scoped lang="scss">

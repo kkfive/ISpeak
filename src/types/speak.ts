@@ -10,11 +10,11 @@ export interface TagType {
 export interface SpeakType {
   author: { nickName: string; avatar: string }
   content: string
-  createAt: Date
+  createdAt: Date
   showComment: '1' | '0'
   tag: TagType
   title: string
   type: '0' | '1' | '2'
-  updateAt: Date
+  updatedAt: Date
   _id: string
 }

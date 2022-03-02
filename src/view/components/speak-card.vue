@@ -16,7 +16,7 @@
         <div class="name">{{ props.speak.author.nickName }}</div>
         <svg-badge style="margin-left: 10px" :height="20" :width="20" />
         <div class="speak-body-card-time">
-          {{ timeAgo(props.speak.createAt) }}
+          {{ timeAgo(props.speak.createdAt) }}
         </div>
       </div>
       <div
@@ -32,7 +32,7 @@
     </div>
     <div
       class="speak-body-card-content"
-      v-html="markedRender(props.speak.content)"
+      v-html="markedRender(props.speak.content, userConfig.loading_img)"
     ></div>
     <div class="speak-body-card-footer">
       <div

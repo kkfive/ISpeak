@@ -5,6 +5,9 @@ const dateFormat = (date) => {
   return `${vYear}-${vMonth}-${vDay}`
 }
 
+function isValidDate(date: any) {
+  return date instanceof Date && !isNaN(date.getTime())
+}
 const padWithZeros = (vNumber, width) => {
   let numAsString = vNumber.toString()
   while (numAsString.length < width) {
@@ -54,8 +57,9 @@ export const formatFontColor = (color) => {
   return flag
 }
 export const timeAgo = (date: Date | number) => {
-  date = new Date(date)
-  if (date) {
+  date = new Date(date || '')
+
+  if (isValidDate(date)) {
     try {
       const oldTime = date.getTime()
       const currTime = Date.now()
@@ -90,5 +94,7 @@ export const timeAgo = (date: Date | number) => {
     } catch (error) {
       console.error('timeAgo 错误', error)
     }
+  } else {
+    return ''
   }
 }

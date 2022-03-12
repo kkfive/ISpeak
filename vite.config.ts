@@ -21,7 +21,9 @@ export default defineConfig({
       }
     }
   },
-
+  esbuild: {
+    pure: ['console.log', 'debugger']
+  },
   css: {
     preprocessorOptions: {
       scss: {

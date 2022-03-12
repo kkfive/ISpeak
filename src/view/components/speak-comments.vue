@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import { initOptions } from '@/types/parameter'
 import { SpeakType } from '@/types/speak'
-import { inject, onMounted, PropType } from 'vue'
+import { inject, onMounted, PropType, defineEmits } from 'vue'
 import speakCard from './speak-card.vue'
 const props = defineProps({
   speak: {

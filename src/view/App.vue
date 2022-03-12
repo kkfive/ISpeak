@@ -9,7 +9,7 @@
       :message="message"
     ></speak-body>
 
-    <speak-footer></speak-footer>
+    <speak-footer :visitorId="visitorId"></speak-footer>
   </div>
 </template>
 
@@ -17,10 +17,9 @@
 import SpeakBody from './components/speak-body.vue'
 import SpeakFooter from './components/speak-footer.vue'
 
-import { inject, onMounted, reactive, ref } from 'vue'
+import { computed, inject, onMounted, reactive, ref } from 'vue'
 import { initOptions } from '@/types/parameter'
 import { SpeakType, TagType } from '@/types/speak'
-import { lazyloadImage } from '@/utils/lazyload'
 const userConfig = inject('option') as initOptions
 /**
  * loading状态标识
@@ -54,7 +53,17 @@ const speakTotal = ref(0)
  * 当前状态信息描述
  */
 const message = ref<string>('')
-
+const visitorId = ref<string | null>(null)
+const requestHeaders = computed(() => {
+  const jwtToken = window.localStorage.getItem('ispeak-token')
+  if (jwtToken) {
+    return {
+      Authorization: 'Bearer ' + jwtToken
+    }
+  } else {
+    return { Authorization: '' }
+  }
+})
 const getSpeakData = async () => {
   const url = userConfig.api
   try {
@@ -66,11 +75,18 @@ const getSpeakData = async () => {
      */
     const data = await (
       await fetch(
-        `${url}api/ispeak?author=${axiosGetSpeakParams.author}&page=${axiosGetSpeakParams.page}&pageSize=${axiosGetSpeakParams.pageSize}`
+        `${url}api/ispeak?author=${axiosGetSpeakParams.author}&page=${axiosGetSpeakParams.page}&pageSize=${axiosGetSpeakParams.pageSize}`,
+        {
+          headers: requestHeaders.value
+        }
       )
     ).json()
 
     loading.value = false
+    if (data.data.isLogin) {
+      // window.localStorage.removeItem('ispeak-token')
+      visitorId.value = data.data.isLogin
+    }
     speakTotal.value = data.data.total
     axiosGetSpeakParams.page = axiosGetSpeakParams.page + 1
 

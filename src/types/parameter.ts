@@ -38,6 +38,9 @@ export interface initOptions {
   fail_img?: string
   // loading的图片
   loading_img?: string
+  // speak页面路径
+  speakPage?: string
+
   // 第一个评论的类型
   initCommentName?: string
   // 评论选项

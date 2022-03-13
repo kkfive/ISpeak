@@ -21,7 +21,7 @@ const userConfig = inject('option') as initOptions
 function goToLogin() {
   const currentHref = decodeURIComponent(window.location.href)
   window.location.href =
-    `https://github.com/login/oauth/authorize?client_id=Iv1.1a4e5a689816a636&type=github&redirect_uri=` +
+    `https://github.com/login/oauth/authorize?client_id=${userConfig.githubClientId}&type=github&redirect_uri=` +
     currentHref
 }
 function logout() {

@@ -36,6 +36,7 @@ if (import.meta.env.DEV) {
     pageSize: 10,
     loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
     speakPage: '/speak',
+    githubClientId: 'Iv1.1a4e5a689816a636',
     initCommentName: 'Discuss',
     initCommentOptions: {
       serverURLs: 'https://kkdiscuss.vercel.app/'

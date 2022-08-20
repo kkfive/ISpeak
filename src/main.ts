@@ -46,12 +46,13 @@ if (import.meta.env.DEV) {
     el: '#app',
     // api: 'https://kkapi-dev.vercel.app/',
     // api: 'http://localhost:3000/',
-    api: 'https://kkapi-open.vercel.app/',
-    author: '621cd7f70c0751da3fb0e5e4',
+    api: 'https://kkapi.vercel.app/',
+    author: '61fe93508fd621d39a155725',
     pageSize: 10,
     loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
     speakPage: '/',
     githubClientId: 'Iv1.59525e76d5e6f5e3',
+    hideComment: false,
     initCommentName: 'Discuss',
     initCommentOptions: {
       serverURLs: 'https://kkdiscuss.vercel.app/'

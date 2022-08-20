@@ -38,7 +38,7 @@
       <div
         @click="toComment"
         class="comments-btn"
-        v-if="props.speak?.showComment === '1' && props.showComment"
+        v-if="props.speak?.showComment === '1' && !userConfig.hideComment"
       >
         <svg-comment />
         评论
@@ -69,10 +69,6 @@ const props = defineProps({
   speak: {
     type: Object as PropType<SpeakType>,
     required: true
-  },
-  showComment: {
-    type: Boolean as PropType<boolean>,
-    default: true
   },
   showBackBtn: {
     type: Boolean as PropType<boolean>,

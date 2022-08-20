@@ -50,4 +50,6 @@ export interface initOptions {
   globalCommentName?: string
   // 评论选项
   globalCommentOptions?: any
+  // 是否隐藏评论按钮
+  hideComment?: boolean
 }

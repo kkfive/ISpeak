@@ -12,7 +12,11 @@ export const markedRender = (body, loading_img) => {
   marked.setOptions({
     renderer: new marked.Renderer(),
     highlight: function (code) {
-      return hljs.highlightAuto(code).value
+      if (hljs) {
+        return hljs.highlightAuto(code).value
+      } else {
+        return code
+      }
     },
     pedantic: false,
     gfm: true,

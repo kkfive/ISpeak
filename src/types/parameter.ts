@@ -1,29 +1,5 @@
-interface DisscussInitOption {
-  /**
-   * 服务端部署地址
-   */
-  serverURLs: string
-  /**
-   * 博主标签占位符，默认: 博主
-   */
-  master?: string
-  /**
-   * 评论框占位符，默认: 评论你的想法~
-   */
-  placeholder?: string
-  /**
-   * 评论语言，默认: zh_CN ，可选: [zh_CN , en_US]
-   */
-  lang?: string
-  /**
-   * 是否开启访问统计，默认: true
-   */
-  visitStat?: boolean
-  /**
-   * 评论图片懒加载，加载动画，默认为1像素白色base64图
-   */
-  imgLoading?: string
-}
+import { SpeakType } from './speak'
+
 // 初始化函数参数定义
 export interface initOptions {
   // 绑定的标签
@@ -41,11 +17,13 @@ export interface initOptions {
   // speak页面路径
   speakPage?: string
   githubClientId?: string
+  comment?: (speak: SpeakType) => void
+  commentClass?: string
+
   // 第一个评论的类型
   initCommentName?: string
   // 评论选项
   initCommentOptions?: any
-
   // 全局对象类型的评论
   globalCommentName?: string
   // 评论选项

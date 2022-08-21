@@ -12,7 +12,8 @@ const defaultInitOption: initOptions = {
   author: '',
   pageSize: 10,
   loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
-  speakPage: '/speak'
+  speakPage: '/speak',
+  commentClass: 'ispeak-comment'
 }
 const render = (options: initOptions) => {
   const app = createApp(App)
@@ -49,13 +50,22 @@ if (import.meta.env.DEV) {
     api: 'https://kkapi.vercel.app/',
     author: '61fe93508fd621d39a155725',
     pageSize: 10,
-    loading_img: 'https://7.dusays.com/2021/03/04/d2d5e983e2961.gif',
+    loading_img: 'https://bu.dusays.com/2021/03/04/d2d5e983e2961.gif',
     speakPage: '/',
     githubClientId: 'Iv1.59525e76d5e6f5e3',
     hideComment: false,
-    initCommentName: 'Discuss',
-    initCommentOptions: {
-      serverURLs: 'https://kkdiscuss.vercel.app/'
+    comment: function (speak) {
+      const { _id, title, content } = speak
+      const contentSub = content.substring(0, 30)
+
+      // @ts-ignore
+      new Artalk({
+        el: '.ispeak-comment',
+        pageKey: '/speak/info.html#' + _id,
+        pageTitle: title || contentSub,
+        server: 'https://api.antmoe.com/artalk/',
+        site: 'speak' // 你的站点名
+      })
     }
   })
 }

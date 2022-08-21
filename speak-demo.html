@@ -8,11 +8,16 @@
       rel="stylesheet"
       href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/10.6.0/styles/atom-one-dark.min.css"
     />
+    <!-- CSS -->
+    <link
+      href="https://unpkg.com/artalk@2.3.4/dist/Artalk.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./dist/style.css" />
-    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/highlight.js/10.6.0/highlight.min.js"></script>
-    <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/marked/2.0.0/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/discuss/dist/Discuss.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@waline/client"></script>
+    <script src="https://cdn.staticfile.org/highlight.js/11.6.0/highlight.min.js"></script>
+    <script src="https://cdn.staticfile.org/marked/2.0.0/marked.min.js"></script>
+    <!-- JS -->
+    <script src="https://unpkg.com/artalk@2.3.4/dist/Artalk.js"></script>
     <title>Document</title>
     <div id="ispeak"></div>
     <script src="./dist/ispeak.umd.js"></script>
@@ -24,12 +29,20 @@
         pageSize: 10,
         loading_img: 'https://bu.dusays.com/2022/05/01/626e88f349943.gif',
         githubClientId: 'Iv1.1a4e5a689816a636',
-        showComment: false
-        // globalCommentName: 'Waline',
-        // globalCommentOptions: {
-        //   serverURL: 'https://mywaline.vercel.app',
-        //   copyright: false
-        // }
+        hideComment: false,
+        comment: function (speak) {
+          const { _id, title, content } = speak
+          const contentSub = content.substring(0, 30)
+
+          // @ts-ignore
+          new Artalk({
+            el: '.ispeak-comment',
+            pageKey: '/speak/info.html#' + _id,
+            pageTitle: title || contentSub,
+            server: 'https://api.antmoe.com/artalk/',
+            site: 'speak' // 你的站点名
+          })
+        }
       })
     </script>
   </head>

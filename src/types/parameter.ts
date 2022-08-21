@@ -17,17 +17,19 @@ export interface initOptions {
   // speak页面路径
   speakPage?: string
   githubClientId?: string
-  comment?: (speak: SpeakType) => void
-  commentClass?: string
-
-  // 第一个评论的类型
-  initCommentName?: string
-  // 评论选项
-  initCommentOptions?: any
-  // 全局对象类型的评论
-  globalCommentName?: string
-  // 评论选项
-  globalCommentOptions?: any
   // 是否隐藏评论按钮
   hideComment?: boolean
+  // 初始化评论的回调函数
+  comment?: (speak: SpeakType) => void
+  // 创建div标签时的类名
+  commentClass?: string
+
+  // 第一个评论的类型 4.4.0之后废弃
+  initCommentName?: string
+  // 评论选项 4.4.0之后废弃
+  initCommentOptions?: any
+  // 全局对象类型的评论 4.4.0之后废弃
+  globalCommentName?: string
+  // 评论选项 4.4.0之后废弃
+  globalCommentOptions?: any
 }

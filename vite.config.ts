@@ -1,16 +1,15 @@
 import path from 'path'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import solidPlugin from 'vite-plugin-solid'
 import { visualizer } from 'rollup-plugin-visualizer'
 import analyze from 'rollup-plugin-analyzer'
 import externalGlobals from 'rollup-plugin-external-globals'
 import { resolve } from 'path'
-// https://vitejs.dev/config/
+
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/main.ts'),
+      entry: path.resolve(__dirname, 'src/main.tsx'),
       name: 'ispeak'
     },
     cssCodeSplit: false,
@@ -21,9 +20,6 @@ export default defineConfig({
       }
     }
   },
-  esbuild: {
-    pure: ['console.log', 'debugger']
-  },
   css: {
     preprocessorOptions: {
       scss: {
@@ -33,14 +29,12 @@ export default defineConfig({
     }
   },
   plugins: [
-    vue(),
-    vueJsx(),
+    solidPlugin(),
     visualizer(),
     analyze({ summaryOnly: true }),
     externalGlobals({
       'highlight.js': 'hljs',
-      marked: 'marked',
-      '@waline/client': 'Waline'
+      marked: 'marked'
     })
   ],
   resolve: {

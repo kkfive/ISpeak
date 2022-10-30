@@ -1,0 +1,37 @@
+.box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.imageBox {
+  max-width: 300px;
+}
+.imageBox img {
+  max-height: 300px;
+  margin-right: 5px;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+/* 2/3 */
+.imageBox img:nth-child(1):nth-last-child(2),
+.imageBox img:nth-child(2):nth-last-child(1),
+.imageBox img:nth-child(1):nth-last-child(3),
+.imageBox img:nth-child(2):nth-last-child(2),
+.imageBox img:nth-child(3):nth-last-child(1) {
+  width: 31%;
+}
+
+/* 4 */
+.imageBox img:nth-child(1):nth-last-child(4),
+.imageBox img:nth-child(2):nth-last-child(3),
+.imageBox img:nth-child(3):nth-last-child(2),
+.imageBox img:nth-child(4):nth-last-child(1) {
+  width: 48%;
+}
+
+/*  5张以上图片  */
+.imageBox img:nth-child(1):nth-last-child(n + 5),
+.imageBox img:nth-child(1):nth-last-child(n + 5) ~ img {
+  width: 31%;
+}

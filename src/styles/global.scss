@@ -1,0 +1,36 @@
+.ispeak {
+  &-bg-white {
+    background-color: white;
+  }
+  &-w-full {
+    width: 100%;
+  }
+  &-overflow-hidden {
+    overflow: hidden;
+  }
+  &-border-box {
+    box-sizing: border-box;
+  }
+  &-radius {
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  &-flex {
+    display: flex;
+  }
+  &-items-center {
+    align-items: center;
+  }
+  &-justify-between {
+    justify-content: space-between;
+  }
+  &-justify-center {
+    justify-content: center;
+  }
+  &-flex-wrap {
+    flex-wrap: wrap;
+  }
+  &-pointer {
+    cursor: pointer;
+  }
+}

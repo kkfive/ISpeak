@@ -1,0 +1,49 @@
+.ispeak-container {
+  box-shadow: 0 3px 8px 6px #07111b0f;
+  transition: all 0.25s ease 0.2s,
+    transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s,
+    -webkit-transform 0.5s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  &:hover {
+    box-shadow: 0 5px 10px 8px #07111b29;
+    transform: translateY(-3px);
+  }
+  &-func {
+    font-size: 12px;
+    .ispeak-right {
+      cursor: pointer;
+    }
+    .label-container {
+      div {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+.hr {
+  position: relative;
+  margin: 10px auto;
+  border: 1px dashed #d2ebfd;
+  width: calc(100% - 4px);
+  &::before {
+    position: absolute;
+    top: -20px;
+    left: 5%;
+    z-index: 1;
+    color: #d2ebfd;
+    content: '\f197';
+    font-size: 20px;
+    line-height: 1;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+  }
+  &:hover::before {
+    left: calc(95% - 20px);
+  }
+}

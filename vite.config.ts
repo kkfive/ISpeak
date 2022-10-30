@@ -4,8 +4,22 @@ import solidPlugin from 'vite-plugin-solid'
 import { visualizer } from 'rollup-plugin-visualizer'
 import analyze from 'rollup-plugin-analyzer'
 import externalGlobals from 'rollup-plugin-external-globals'
+import VitePluginStyleInject from 'vite-plugin-style-inject'
 import { resolve } from 'path'
-
+const plugins = [
+  solidPlugin(),
+  VitePluginStyleInject(),
+  visualizer(),
+  analyze({ summaryOnly: true })
+]
+if (process.env.NODE_ENV !== 'development') {
+  plugins.push(
+    externalGlobals({
+      'highlight.js': 'hljs',
+      marked: 'marked'
+    })
+  )
+}
 export default defineConfig({
   build: {
     lib: {
@@ -13,12 +27,7 @@ export default defineConfig({
       name: 'ispeak'
     },
     cssCodeSplit: false,
-    target: 'modules',
-    terserOptions: {
-      compress: {
-        drop_console: true
-      }
-    }
+    target: 'modules'
   },
   css: {
     preprocessorOptions: {
@@ -28,15 +37,7 @@ export default defineConfig({
       }
     }
   },
-  plugins: [
-    solidPlugin(),
-    visualizer(),
-    analyze({ summaryOnly: true }),
-    externalGlobals({
-      'highlight.js': 'hljs',
-      marked: 'marked'
-    })
-  ],
+  plugins,
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src') // 设置 `@` 指向 `src` 目录
